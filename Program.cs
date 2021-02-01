@@ -123,15 +123,5 @@ namespace XmlSorter
             nodes.Sort();
             return node with { Children = nodes.ToArray() };
         }
-
-        private int ComparisonNode(Node a, Node b)
-        {
-            var r = string.Compare(a.Name, b.Name);
-            if (r == 0)
-            {
-                return a.GetHashCode() - b.GetHashCode();
-            }
-            return r;
-        }
     }
 }
