@@ -92,7 +92,7 @@ namespace XmlSorter
                                         attrs.Add(new Attr(r.Prefix, r.Name, r.Value));
                                     }
                                 }
-                                attrs.Sort((a, b) => string.Compare(a.Name, b.Name));
+                                attrs.Sort((a, b) => string.Compare($"{a.Prefix}:{a.Name}", $"{b.Prefix}:{b.Name}"));
                                 r.MoveToElement();
                                 if (r.IsEmptyElement)
                                 {
@@ -115,12 +115,12 @@ namespace XmlSorter
                             break;
 
                         case XmlNodeType.EndElement:
-                            nodes.Sort(ComparisonNode);
+                            nodes.Sort();
                             return node with { Value = value, Children = nodes.ToArray() };
                     }
                 }
             }
-            nodes.Sort(ComparisonNode);
+            nodes.Sort();
             return node with { Children = nodes.ToArray() };
         }
 
