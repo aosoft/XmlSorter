@@ -94,7 +94,14 @@ namespace XmlSorter
                                 }
                                 attrs.Sort((a, b) => string.Compare(a.Name, b.Name));
                                 r.MoveToElement();
-                                nodes.Add(ReadNode(r, new Node(r.Prefix, r.Name, attrs.ToArray(), ns)));
+                                if (r.IsEmptyElement)
+                                {
+                                    nodes.Add(new Node(r.Prefix, r.Name, attrs.ToArray(), ns));
+                                }
+                                else
+                                {
+                                    nodes.Add(ReadNode(r, new Node(r.Prefix, r.Name, attrs.ToArray(), ns)));
+                                }
                             }
                             else
                             {
