@@ -20,14 +20,24 @@ namespace XmlSorter
             var node = LoadXML(r);
             if (node != null)
             {
-                using var w = XmlWriter.Create(Console.Out, new XmlWriterSettings()
+                var settings = new XmlWriterSettings()
                 {
                     NewLineChars = Environment.NewLine,
                     NewLineOnAttributes = true,
                     Indent = true,
                     IndentChars = "  ",
-                });
-                WriteNode(w, node);
+                };
+                if (output != null)
+                {
+                    using var sw = new StreamWriter(output, false, Encoding.UTF8);
+                    using var w = XmlWriter.Create(sw, settings);
+                    WriteNode(w, node);
+                }
+                else
+                {
+                    using var w = XmlWriter.Create(Console.Out, settings);
+                    WriteNode(w, node);
+                }
             }
         }
 
