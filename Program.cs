@@ -62,6 +62,10 @@ namespace XmlSorter
             {
                 WriteNode(w, item);
             }
+            if (!string.IsNullOrEmpty(node.Value))
+            {
+                w.WriteString(node.Value);
+            }
             w.WriteEndElement();
         }
 

@@ -56,8 +56,13 @@ namespace XmlSorter
                     var a = string.Join(" ", Children.Select(x => x.GetHashCode()).ToArray());
                     var b = string.Join(" ", other.Children.Select(x => x.GetHashCode()).ToArray());
                     var r = string.Compare(a, b);
-                    return r;
+                    if (r != 0)
+                    {
+                        return r;
+                    }
                 }
+
+                return string.Compare(Value, other.Value);
             }
             return 1;
         }
